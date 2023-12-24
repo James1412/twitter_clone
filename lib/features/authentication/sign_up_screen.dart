@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:twitter/constants/sizes.dart';
 import 'package:twitter/features/authentication/create_account_screen.dart';
-import 'package:twitter/features/authentication/login_screen.dart';
 import 'package:twitter/util.dart';
 
 import '../../constants/gaps.dart';
@@ -136,11 +134,6 @@ class SignUpScreen extends ConsumerWidget {
                 Gaps.v48,
                 GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const LoginScreen()),
-                    // );
                     context.push('/login');
                   },
                   child: RichText(

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:twitter/constants/gaps.dart';
 import 'package:twitter/constants/sizes.dart';
+import 'package:twitter/features/authentication/view_models/sign_up_view_model.dart';
 import 'package:twitter/features/onboarding/interest_screen.dart';
 import 'package:twitter/features/navigation/widgets/app_bar.dart';
 
-class PasswordScreen extends StatefulWidget {
+class PasswordScreen extends ConsumerStatefulWidget {
   const PasswordScreen({super.key});
 
   @override
-  State<PasswordScreen> createState() => _PasswordScreenState();
+  PasswordScreenState createState() => PasswordScreenState();
 }
 
-class _PasswordScreenState extends State<PasswordScreen> {
+class PasswordScreenState extends ConsumerState<PasswordScreen> {
   final _passwordController = TextEditingController();
 
   bool _isObsecure = true;
@@ -41,6 +44,22 @@ class _PasswordScreenState extends State<PasswordScreen> {
 
   bool _isPasswordValid() {
     return _password.isNotEmpty && _password.length >= 8;
+  }
+
+  void _onNextTab() {
+    if (_isPasswordValid()) {
+      final state = ref.read(signUpForm.notifier).state;
+      ref.read(signUpForm.notifier).state = {
+        ...state,
+        'password': _password,
+      };
+      ref.read(signUpProvider.notifier).signUp();
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const InterestScreen(),
+        ),
+      );
+    }
   }
 
   @override
@@ -125,15 +144,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
               borderRadius: BorderRadius.circular(Sizes.size24),
             ),
             child: TextButton(
-              onPressed: () {
-                if (_isPasswordValid()) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => InterestScreen(),
-                    ),
-                  );
-                }
-              },
+              onPressed: _onNextTab,
               child: const Text(
                 "Next",
                 style: TextStyle(

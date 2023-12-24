@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter/features/authentication/confirmation_screen.dart';
 import 'package:twitter/features/authentication/customize_experience_screen.dart';
+import 'package:twitter/features/authentication/view_models/sign_up_view_model.dart';
 import 'package:twitter/util.dart';
 
 import '../../constants/gaps.dart';
@@ -309,6 +310,9 @@ class CreateAccountScreenState extends ConsumerState<CreateAccountScreen> {
                   GestureDetector(
                     onTap: () async {
                       if (_isFormValid()) {
+                        ref.read(signUpForm.notifier).state = {
+                          'email': _formData['email'],
+                        };
                         final bool agreed = await Navigator.push(
                           context,
                           MaterialPageRoute(
