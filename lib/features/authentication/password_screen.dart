@@ -53,7 +53,7 @@ class PasswordScreenState extends ConsumerState<PasswordScreen> {
         ...state,
         'password': _password,
       };
-      ref.read(signUpProvider.notifier).signUp();
+      ref.read(signUpProvider.notifier).signUp(context);
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const InterestScreen(),

@@ -9,7 +9,6 @@ import 'package:twitter/features/settings/settings_screen.dart';
 
 final routerProvider = Provider(
   (ref) {
-    ref.watch(authStateStream);
     return GoRouter(
       initialLocation: '/',
       redirect: (context, state) {
