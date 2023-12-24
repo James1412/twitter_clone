@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:twitter/constants/gaps.dart';
+import 'package:twitter/features/authentication/repos/authentication_repository.dart';
 import 'package:twitter/features/dark_mode/view_models/dark_mode_config_view_model.dart';
 import 'package:twitter/features/settings/widgets/setting_tile.dart';
 import 'package:twitter/util.dart';
@@ -86,15 +89,39 @@ class SettingsScreenState extends ConsumerState<SettingsScreen> {
               tile: tile,
             ),
           const Divider(),
-          ListTile(
-            title: const Text(
-              "Log out",
-              style: TextStyle(
-                color: Colors.blue,
+          GestureDetector(
+            onTap: () {
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                  title: const Text("Log Out?"),
+                  actions: [
+                    CupertinoDialogAction(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text("No"),
+                    ),
+                    CupertinoDialogAction(
+                      isDestructiveAction: true,
+                      onPressed: () {
+                        ref.read(authRepo).signOut();
+                        context.go('/');
+                      },
+                      child: const Text("Yes"),
+                    ),
+                  ],
+                ),
+              );
+            },
+            child: ListTile(
+              title: const Text(
+                "Log out",
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
               ),
-            ),
-            trailing: CircularProgressIndicator.adaptive(
-              backgroundColor: isDark ? Colors.white : null,
+              trailing: CircularProgressIndicator.adaptive(
+                backgroundColor: isDark ? Colors.white : null,
+              ),
             ),
           ),
         ],
