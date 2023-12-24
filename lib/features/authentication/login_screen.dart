@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:twitter/constants/sizes.dart';
 import 'package:twitter/features/authentication/create_account_screen.dart';
-import 'package:twitter/features/authentication/login_screen.dart';
+import 'package:twitter/features/authentication/login_form_screen.dart';
 import 'package:twitter/util.dart';
 
 import '../../constants/gaps.dart';
@@ -13,8 +12,8 @@ import '../navigation/widgets/app_bar.dart';
 import 'widgets/auth_button.dart';
 import 'widgets/google_logo.dart';
 
-class SignUpScreen extends ConsumerWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends ConsumerWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -87,65 +86,20 @@ class SignUpScreen extends ConsumerWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const CreateAccountScreen(),
+                        builder: (_) => const LoginFormScreen(),
                       ),
                     );
                   },
-                  text: "Create account",
+                  text: "Log in",
                 ),
                 Gaps.v24,
-                RichText(
-                  text: TextSpan(
-                    text: "By Signing up, you agree to our ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: isDark ? Colors.white : Colors.grey.shade900,
-                      fontSize: Sizes.size16,
-                    ),
-                    children: const [
-                      TextSpan(
-                        text: "Terms",
-                        style: TextStyle(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      TextSpan(
-                        text: ",\n",
-                      ),
-                      TextSpan(
-                        text: "Privacy Policy",
-                        style: TextStyle(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      TextSpan(
-                        text: ", and ",
-                      ),
-                      TextSpan(
-                        text: "Cookie Use",
-                        style: TextStyle(
-                          color: Colors.blue,
-                        ),
-                      ),
-                      TextSpan(
-                        text: ".",
-                      ),
-                    ],
-                  ),
-                ),
-                Gaps.v48,
                 GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const LoginScreen()),
-                    // );
-                    context.push('/login');
+                    context.pop();
                   },
                   child: RichText(
                     text: TextSpan(
-                      text: "Have an account already? ",
+                      text: "Don't have an account? ",
                       style: TextStyle(
                         fontWeight: FontWeight.w300,
                         color: isDark
@@ -155,7 +109,7 @@ class SignUpScreen extends ConsumerWidget {
                       ),
                       children: const [
                         TextSpan(
-                          text: "Log in",
+                          text: "Sign up",
                           style: TextStyle(
                             color: Colors.blue,
                           ),

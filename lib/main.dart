@@ -1,9 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:twitter/features/dark_mode/repos/dark_mode.config_repo.dart';
 import 'package:twitter/features/dark_mode/view_models/dark_mode_config_view_model.dart';
+import 'package:twitter/firebase_options.dart';
 import 'package:twitter/routes.dart';
 
 void main() async {
@@ -11,6 +12,9 @@ void main() async {
   final preferences = await SharedPreferences.getInstance();
   final repository = DarkModeConfigRepository(preferences);
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     ProviderScope(
       overrides: [
@@ -34,7 +38,7 @@ class TwitterCloneState extends ConsumerState<TwitterClone> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: routes,
+      routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textSelectionTheme: const TextSelectionThemeData(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "25487893224",
+    "project_id": "twitter-clone-nomad10weeks",
+    "storage_bucket": "twitter-clone-nomad10weeks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25487893224:android:6fea313f93f7c0f2d91f5d",
+        "android_client_info": {
+          "package_name": "com.example.twitter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNvItraihfTUuMTQGh-tUQXznutzDBkyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
